@@ -1,14 +1,8 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:developer' as dev;
 
-import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:junk_fury/flame_game/junk_fury.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -40,8 +34,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  final game = JunkFury();
-  runApp(GameWidget(game: game));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -78,7 +71,7 @@ class MyApp extends StatelessWidget {
           final palette = context.watch<Palette>();
 
           return MaterialApp.router(
-            title: 'My Flutter Game',
+            title: 'Junk Fury',
             theme: ThemeData.from(
               colorScheme: ColorScheme.fromSeed(
                 seedColor: palette.darkPen,
@@ -89,7 +82,6 @@ class MyApp extends StatelessWidget {
               ),
               useMaterial3: true,
             ).copyWith(
-              // Make buttons more fun.
               filledButtonTheme: FilledButtonThemeData(
                 style: FilledButton.styleFrom(
                   textStyle: const TextStyle(
