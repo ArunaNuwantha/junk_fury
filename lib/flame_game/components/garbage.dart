@@ -1,17 +1,14 @@
 import 'dart:async';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/extensions.dart';
-import 'dart:ui';
-
 import 'package:junk_fury/flame_game/junk_fury.dart';
 
 class Garbage extends SpriteAnimationComponent with HasGameRef<JunkFury> {
-  static const double sized = 32.0;
+  static const double sized = 64.0;
 
-  Garbage(Vector2 position)
+  Garbage()
       : super(
-          position: position,
           size: Vector2.all(sized),
         );
 
@@ -25,11 +22,17 @@ class Garbage extends SpriteAnimationComponent with HasGameRef<JunkFury> {
         textureSize: Vector2(32, 32),
       ),
     );
+    add(
+      RectangleHitbox(
+        collisionType: CollisionType.passive,
+      ),
+    );
     return super.onLoad();
   }
 
   @override
   void update(double dt) {
+    super.update(dt);
     // Move the garbage downward
     position.y += 100 * dt;
   }

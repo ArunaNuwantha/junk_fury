@@ -2,6 +2,7 @@ import 'dart:async' as async;
 import 'dart:math' as math;
 
 import 'package:flame/components.dart';
+import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
@@ -29,14 +30,17 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
       position: Vector2(width / 2, height * 0.95),
     );
     world.add(player);
-    async.Timer.periodic(const Duration(seconds: 1), (timer) {
-      spawnGarbage();
-    });
+
+    spawnGarbage();
   }
 
   void spawnGarbage() {
-    final randomX = math.Random().nextDouble() * (width - Garbage.sized);
-    world.add(Garbage(Vector2(randomX, 0)));
+    // final randomX = math.Random().nextDouble() * (width - Garbage.sized);
+    world.add(SpawnComponent(
+      factory: (index) => Garbage(),
+      period: 1,
+      area: Rectangle.fromLTWH(0, 0, size.x, -Garbage.sized),
+    ));
   }
 
   @override

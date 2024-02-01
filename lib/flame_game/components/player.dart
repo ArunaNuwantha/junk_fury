@@ -1,11 +1,13 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
+import 'package:junk_fury/flame_game/components/garbage.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 import 'dart:developer' as developer;
 
 class Player extends SpriteAnimationGroupComponent
-    with HasGameReference<JunkFury>, DragCallbacks {
+    with HasGameReference<JunkFury>, DragCallbacks, CollisionCallbacks {
   Player({required super.position})
       : super(
           anchor: Anchor.center,
@@ -19,6 +21,10 @@ class Player extends SpriteAnimationGroupComponent
     await super.onLoad();
 
     _loadAllAnimation();
+
+    add(
+      RectangleHitbox(),
+    );
 
     width = 64;
     height = 64;
@@ -67,6 +73,16 @@ class Player extends SpriteAnimationGroupComponent
       Vector2(clampedPosition, position.y),
       EffectController(duration: 0.1),
     ));
+  }
+
+  @override
+  void onCollisionStart(
+      Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollisionStart(intersectionPoints, other);
+    developer.log("collided");
+    if (other is Garbage) {
+      other.removeFromParent();
+    }
   }
 }
 
