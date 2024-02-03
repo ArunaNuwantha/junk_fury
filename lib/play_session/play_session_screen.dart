@@ -2,15 +2,14 @@ import 'dart:async';
 
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
 import '../game_internals/score.dart';
-import '../style/confetti.dart';
 import '../style/palette.dart';
 
 class PlaySessionScreen extends StatefulWidget {
@@ -31,10 +30,12 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   late DateTime _startOfPlay;
 
+  late int score;
+
   @override
   void initState() {
     super.initState();
-
+    score = 0;
     _startOfPlay = DateTime.now();
   }
 
@@ -42,54 +43,33 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
     _log.log(Level.INFO, "game started");
-    return MultiProvider(
-      providers: [Provider(create: (context) => Score(Duration.zero))],
-      child: IgnorePointer(
-        ignoring: _duringCelebration,
-        child: Scaffold(
-          backgroundColor: palette.backgroundMain,
-          body: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text("score"),
-                        InkResponse(
-                          onTap: () => GoRouter.of(context).push('/settings'),
-                          child: Image.asset(
-                            'assets/images/settings.png',
-                            semanticLabel: 'Settings',
-                            height: 24,
-                            width: 24,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Expanded(
-                    child: GameWidget.controlled(gameFactory: JunkFury.new),
-                  ),
-                ],
-              ),
-              // This is the confetti animation that is overlaid on top of the
-              // game when the player wins.
-              SizedBox.expand(
-                child: Visibility(
-                  visible: _duringCelebration,
-                  child: IgnorePointer(
-                    child: Confetti(
-                      isStopped: !_duringCelebration,
-                    ),
-                  ),
+    return IgnorePointer(
+      ignoring: _duringCelebration,
+      child: Scaffold(
+        backgroundColor: palette.backgroundMain,
+        body: Stack(
+          children: [
+            const Column(
+              children: [
+                Expanded(
+                  child: GameWidget.controlled(gameFactory: JunkFury.new),
+                ),
+              ],
+            ),
+            Positioned(
+              top: 14,
+              left: 16,
+              child: InkResponse(
+                onTap: () => GoRouter.of(context).push('/settings'),
+                child: Image.asset(
+                  'assets/images/settings.png',
+                  semanticLabel: 'Settings',
+                  height: 24,
+                  width: 24,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

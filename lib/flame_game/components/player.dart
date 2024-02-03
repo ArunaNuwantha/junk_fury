@@ -82,6 +82,7 @@ class Player extends SpriteAnimationGroupComponent
     developer.log("collided");
     if (other is Garbage) {
       other.removeFromParent();
+      game.addScore(amount: 1);
     }
   }
 }

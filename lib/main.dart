@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
           Provider(create: (context) => SettingsController()),
           Provider(create: (context) => Palette()),
           ChangeNotifierProvider(create: (context) => PlayerProgress()),
+
           // Set up audio.
           ProxyProvider2<AppLifecycleStateNotifier, SettingsController,
               AudioController>(

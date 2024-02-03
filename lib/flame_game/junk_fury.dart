@@ -20,26 +20,31 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
   double get width => size.x;
   double get height => size.y;
 
+  late final TextComponent scoreText;
+  late final TextComponent livesText;
+
+  late int score;
+  late int lives;
+
+  final textRenderer = TextPaint(
+    style: const TextStyle(
+      fontSize: 30,
+      color: Colors.black,
+      fontFamily: 'Permanent Marker',
+    ),
+  );
+
   @override
   async.FutureOr<void> onLoad() {
+    scoreText = TextComponent(
+        position: Vector2(20, 10), priority: 1, textRenderer: textRenderer);
+    livesText = TextComponent(
+        position: Vector2(160, 10), priority: 1, textRenderer: textRenderer);
+    camera.viewport.add(scoreText);
+    camera.viewport.add(livesText);
     // camera.backdrop.add(Background(speed: 2));
     camera.viewfinder.anchor = Anchor.topLeft;
-    world.add(PlayArea());
-    Player player = Player(
-      position: Vector2(width / 2, height * 0.95),
-    );
-    world.add(player);
-
-    spawnGarbage();
-  }
-
-  void spawnGarbage() {
-    // final randomX = math.Random().nextDouble() * (width - Garbage.sized);
-    world.add(SpawnComponent(
-      factory: (index) => Garbage(),
-      period: 1,
-      area: Rectangle.fromLTWH(0, 0, size.x, -Garbage.sized),
-    ));
+    startGame();
   }
 
   @override
@@ -54,5 +59,42 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
         world.children.query<Player>().first.moveBy(playerStep);
     }
     return KeyEventResult.handled;
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+    scoreText.text = 'Score: $score';
+    livesText.text = 'Lives: $lives';
+  }
+
+  void startGame() {
+    score = 0;
+    lives = 3;
+    world.add(PlayArea());
+    Player player = Player(position: Vector2(width / 2, height * 0.95));
+    world.add(player);
+
+    spawnGarbage();
+  }
+
+  void addScore({int amount = 1}) {
+    score += amount;
+  }
+
+  void resetScore() {
+    score = 0;
+  }
+
+  void playerDied() {
+    lives -= 1;
+  }
+
+  void spawnGarbage() {
+    world.add(SpawnComponent(
+      factory: (index) => Garbage(),
+      period: 1,
+      area: Rectangle.fromLTWH(0, 0, size.x, -Garbage.sized),
+    ));
   }
 }

@@ -35,5 +35,9 @@ class Garbage extends SpriteAnimationComponent with HasGameRef<JunkFury> {
     super.update(dt);
     // Move the garbage downward
     position.y += 100 * dt;
+    if (position.y > game.height) {
+      game.playerDied();
+      removeFromParent();
+    }
   }
 }
