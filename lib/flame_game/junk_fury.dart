@@ -1,5 +1,5 @@
 import 'dart:async' as async;
-
+import 'dart:developer' as developer;
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
@@ -11,7 +11,10 @@ import 'package:junk_fury/flame_game/components/play_area.dart';
 import 'package:junk_fury/flame_game/components/player.dart';
 import 'package:junk_fury/flame_game/config.dart';
 
-class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
+enum GameState { playing, gameOver, pause }
+
+class JunkFury extends FlameGame
+    with HasCollisionDetection, KeyboardEvents, TapDetector {
   JunkFury()
       : super(
             camera: CameraComponent.withFixedResolution(
@@ -26,6 +29,22 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
   late int score;
   late int lives;
 
+  late GameState _gameState;
+
+  GameState get gameState => _gameState;
+
+  set gameState(GameState gameState) {
+    _gameState = gameState;
+    switch (gameState) {
+      case GameState.gameOver:
+      case GameState.pause:
+        overlays.add(gameState.name);
+      case GameState.playing:
+        overlays.remove(GameState.gameOver.name);
+        overlays.remove(GameState.pause.name);
+    }
+  }
+
   final textRenderer = TextPaint(
     style: const TextStyle(
       fontSize: 30,
@@ -34,12 +53,23 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
     ),
   );
 
+  final livesTextRenderer = TextPaint(
+    style: const TextStyle(
+      fontSize: 30,
+      color: Colors.red,
+      fontFamily: 'Permanent Marker',
+    ),
+  );
+
   @override
   async.FutureOr<void> onLoad() {
+    gameState = GameState.pause;
     scoreText = TextComponent(
         position: Vector2(20, 10), priority: 1, textRenderer: textRenderer);
     livesText = TextComponent(
-        position: Vector2(160, 10), priority: 1, textRenderer: textRenderer);
+        position: Vector2(20, 40),
+        priority: 1,
+        textRenderer: livesTextRenderer);
     camera.viewport.add(scoreText);
     camera.viewport.add(livesText);
     // camera.backdrop.add(Background(speed: 2));
@@ -65,21 +95,37 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
   void update(double dt) {
     super.update(dt);
     scoreText.text = 'Score: $score';
-    livesText.text = 'Lives: $lives';
+    livesText.text = '❤️ ' * lives;
+    if (lives <= 0) {
+      gameState = GameState.gameOver;
+    }
+  }
+
+  @override
+  void onTap() {
+    startGame();
+    super.onTap();
   }
 
   void startGame() {
+    if (gameState == GameState.playing) return;
+
+    world.removeAll(world.children.query<Garbage>());
+    world.removeAll(world.children.query<Player>());
+
+    gameState = GameState.playing;
+
     score = 0;
     lives = 3;
+
     world.add(PlayArea());
     Player player = Player(position: Vector2(width / 2, height * 0.95));
     world.add(player);
-
     spawnGarbage();
   }
 
   void addScore({int amount = 1}) {
-    score += amount;
+    if (lives > 0) score += amount;
   }
 
   void resetScore() {
@@ -87,7 +133,7 @@ class JunkFury extends FlameGame with HasCollisionDetection, KeyboardEvents {
   }
 
   void playerDied() {
-    lives -= 1;
+    if (lives > 0) lives -= 1;
   }
 
   void spawnGarbage() {
