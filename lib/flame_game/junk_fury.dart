@@ -1,5 +1,3 @@
-import 'dart:async' as async;
-import 'dart:developer' as developer;
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
@@ -10,6 +8,7 @@ import 'package:junk_fury/flame_game/components/garbage.dart';
 import 'package:junk_fury/flame_game/components/play_area.dart';
 import 'package:junk_fury/flame_game/components/player.dart';
 import 'package:junk_fury/flame_game/config.dart';
+import 'package:logging/logging.dart';
 
 enum GameState { playing, gameOver, pause }
 
@@ -22,6 +21,8 @@ class JunkFury extends FlameGame
 
   double get width => size.x;
   double get height => size.y;
+
+  static final _log = Logger("JunkFury");
 
   late final TextComponent scoreText;
   late final TextComponent livesText;
@@ -62,7 +63,7 @@ class JunkFury extends FlameGame
   );
 
   @override
-  async.FutureOr<void> onLoad() {
+  void onLoad() {
     gameState = GameState.pause;
     scoreText = TextComponent(
         position: Vector2(20, 10), priority: 1, textRenderer: textRenderer);
@@ -95,9 +96,9 @@ class JunkFury extends FlameGame
   void update(double dt) {
     super.update(dt);
     scoreText.text = 'Score: $score';
-    livesText.text = '❤️ ' * lives;
+    livesText.text = lives > 0 ? '❤️ ' * lives : '💀 ';
     if (lives <= 0) {
-      gameState = GameState.gameOver;
+      gameOver();
     }
   }
 
@@ -107,9 +108,15 @@ class JunkFury extends FlameGame
     super.onTap();
   }
 
+  void gameOver() {
+    gameState = GameState.gameOver;
+    _log.log(Level.INFO, "Game is over");
+  }
+
   void startGame() {
     if (gameState == GameState.playing) return;
 
+    world.removeAll(world.children.query<SpawnComponent>());
     world.removeAll(world.children.query<Garbage>());
     world.removeAll(world.children.query<Player>());
 
