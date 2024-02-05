@@ -110,7 +110,7 @@ class JunkFury extends FlameGame
 
   void gameOver() {
     gameState = GameState.gameOver;
-    _log.log(Level.INFO, "Game is over");
+    // _log.log(Level.INFO, "Game is over");
   }
 
   void startGame() {
@@ -129,6 +129,7 @@ class JunkFury extends FlameGame
     Player player = Player(position: Vector2(width / 2, height * 0.95));
     world.add(player);
     spawnGarbage();
+    _log.log(Level.INFO, "Game is started");
   }
 
   void addScore({int amount = 1}) {
@@ -146,8 +147,8 @@ class JunkFury extends FlameGame
   void spawnGarbage() {
     world.add(SpawnComponent(
       factory: (index) => Garbage(),
-      period: 1,
-      area: Rectangle.fromLTWH(0, 0, size.x, -Garbage.sized),
+      period: 2,
+      area: Rectangle.fromLTWH(0, 0, size.x - Garbage.sized, -Garbage.sized),
     ));
   }
 }

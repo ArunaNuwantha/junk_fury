@@ -20,53 +20,62 @@ class MainMenuScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: palette.backgroundMain,
-      body: ResponsiveScreen(
-        squarishMainArea: Center(
-          child: Transform.rotate(
-            angle: -0.1,
-            child: const Text(
-              'Junk Fury',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Permanent Marker',
-                fontSize: 55,
-                height: 1,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/home_background.jpg'), // Replace with your image path
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: ResponsiveScreen(
+          squarishMainArea: Center(
+            child: Transform.rotate(
+              angle: -0.1,
+              child: const Text(
+                '',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Permanent Marker',
+                  fontSize: 55,
+                  height: 1,
+                ),
               ),
             ),
           ),
-        ),
-        rectangularMenuArea: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            MyButton(
-              onPressed: () {
-                audioController.playSfx(SfxType.buttonTap);
-                GoRouter.of(context).go('/play');
-              },
-              child: const Text('Play'),
-            ),
-            _gap,
-            MyButton(
-              onPressed: () => GoRouter.of(context).push('/settings'),
-              child: const Text('Settings'),
-            ),
-            _gap,
-            Padding(
-              padding: const EdgeInsets.only(top: 32),
-              child: ValueListenableBuilder<bool>(
-                valueListenable: settingsController.audioOn,
-                builder: (context, audioOn, child) {
-                  return IconButton(
-                    onPressed: () => settingsController.toggleAudioOn(),
-                    icon: Icon(audioOn ? Icons.volume_up : Icons.volume_off),
-                  );
+          rectangularMenuArea: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              MyButton(
+                onPressed: () {
+                  audioController.playSfx(SfxType.buttonTap);
+                  GoRouter.of(context).go('/play');
                 },
+                child: const Text('Play'),
               ),
-            ),
-            _gap,
-            const Text('Developed by Aruna'),
-            _gap,
-          ],
+              _gap,
+              MyButton(
+                onPressed: () => GoRouter.of(context).push('/settings'),
+                child: const Text('Settings'),
+              ),
+              _gap,
+              Padding(
+                padding: const EdgeInsets.only(top: 32),
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: settingsController.audioOn,
+                  builder: (context, audioOn, child) {
+                    return IconButton(
+                      onPressed: () => settingsController.toggleAudioOn(),
+                      icon: Icon(audioOn ? Icons.volume_up : Icons.volume_off),
+                    );
+                  },
+                ),
+              ),
+              _gap,
+              const Text('Developed by Aruna'),
+              _gap,
+            ],
+          ),
         ),
       ),
     );
