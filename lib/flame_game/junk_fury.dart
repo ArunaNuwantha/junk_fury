@@ -82,13 +82,29 @@ class JunkFury extends FlameGame
   KeyEventResult onKeyEvent(
       RawKeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     super.onKeyEvent(event, keysPressed);
+
+    final player = world.children.query<Player>().first;
+
     switch (event.logicalKey) {
       case LogicalKeyboardKey.arrowLeft:
-        world.children.query<Player>().first.moveBy(-playerStep);
+        if (event is RawKeyDownEvent) {
+          player.moveBy(-playerStep);
+          player.current = PlayerState.running;
+        } else if (event is RawKeyUpEvent) {
+          player.current = PlayerState.idle;
+        }
+        break;
 
       case LogicalKeyboardKey.arrowRight:
-        world.children.query<Player>().first.moveBy(playerStep);
+        if (event is RawKeyDownEvent) {
+          player.moveBy(playerStep);
+          player.current = PlayerState.running;
+        } else if (event is RawKeyUpEvent) {
+          player.current = PlayerState.idle;
+        }
+        break;
     }
+
     return KeyEventResult.handled;
   }
 

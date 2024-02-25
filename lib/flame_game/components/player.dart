@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:junk_fury/flame_game/components/garbage.dart';
+import 'package:junk_fury/flame_game/config.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 import 'dart:developer' as developer;
 
@@ -15,6 +16,7 @@ class Player extends SpriteAnimationGroupComponent
 
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation runningAnimation;
+  double prevDx = playerStep;
 
   @override
   Future<void> onLoad() async {
@@ -26,8 +28,8 @@ class Player extends SpriteAnimationGroupComponent
       RectangleHitbox(),
     );
 
-    width = 64;
-    height = 64;
+    width = 128;
+    height = 128;
   }
 
   void _loadAllAnimation() async {
@@ -65,7 +67,18 @@ class Player extends SpriteAnimationGroupComponent
         .clamp(width / 2, game.width - width / 2);
   }
 
+  @override
+  void update(double dt) {
+    super.update(dt);
+    // developer.log("position ${position.x}, ${position.y}");
+  }
+
   void moveBy(double dx) {
+    // developer.log("dx: $dx");
+    if (dx != prevDx) {
+      flipHorizontally();
+    }
+    prevDx = dx;
     final newPosition = position.x + dx;
     final clampedPosition =
         newPosition.clamp(width / 2, game.width - width / 2);

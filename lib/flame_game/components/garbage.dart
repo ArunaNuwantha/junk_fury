@@ -5,7 +5,7 @@ import 'package:flame/components.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 
 class Garbage extends SpriteAnimationComponent with HasGameRef<JunkFury> {
-  static const double sized = 64.0;
+  static const double sized = 96.0;
 
   Garbage()
       : super(
