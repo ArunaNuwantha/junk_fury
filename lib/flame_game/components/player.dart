@@ -67,12 +67,6 @@ class Player extends SpriteAnimationGroupComponent
         .clamp(width / 2, game.width - width / 2);
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-    // developer.log("position ${position.x}, ${position.y}");
-  }
-
   void moveBy(double dx) {
     // developer.log("dx: $dx");
     if (dx != prevDx) {

@@ -1,7 +1,3 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -25,60 +21,81 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: palette.backgroundSettings,
-      body: ResponsiveScreen(
-        squarishMainArea: ListView(
-          children: [
-            _gap,
-            const Text(
-              'Settings',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Permanent Marker',
-                fontSize: 55,
-                height: 1,
-              ),
-            ),
-            _gap,
-            const _NameChangeLine(
-              'Name',
-            ),
-            ValueListenableBuilder<bool>(
-              valueListenable: settings.soundsOn,
-              builder: (context, soundsOn, child) => _SettingsLine(
-                'Sound FX',
-                Icon(soundsOn ? Icons.graphic_eq : Icons.volume_off),
-                onSelected: () => settings.toggleSoundsOn(),
-              ),
-            ),
-            ValueListenableBuilder<bool>(
-              valueListenable: settings.musicOn,
-              builder: (context, musicOn, child) => _SettingsLine(
-                'Music',
-                Icon(musicOn ? Icons.music_note : Icons.music_off),
-                onSelected: () => settings.toggleMusicOn(),
-              ),
-            ),
-            _SettingsLine(
-              'Reset progress',
-              const Icon(Icons.delete),
-              onSelected: () {
-                context.read<PlayerProgress>().reset();
-
-                final messenger = ScaffoldMessenger.of(context);
-                messenger.showSnackBar(
-                  const SnackBar(
-                      content: Text('Player progress has been reset.')),
-                );
-              },
-            ),
-            _gap,
-          ],
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/images/home_bg.jpg'), // Replace with your image path
+            fit: BoxFit.cover,
+          ),
         ),
-        rectangularMenuArea: MyButton(
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-          child: const Text('Back'),
+        child: ResponsiveScreen(
+          squarishMainArea: ListView(
+            children: [
+              _gap,
+              const Text(
+                'Settings',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 55,
+                    height: 1,
+                    color: Colors.black),
+              ),
+              _gap,
+              const _NameChangeLine(
+                'Name',
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: settings.soundsOn,
+                builder: (context, soundsOn, child) => _SettingsLine(
+                  'Sound FX',
+                  Icon(soundsOn ? Icons.graphic_eq : Icons.volume_off,
+                      color: Colors.black),
+                  onSelected: () => settings.toggleSoundsOn(),
+                ),
+              ),
+              ValueListenableBuilder<bool>(
+                valueListenable: settings.musicOn,
+                builder: (context, musicOn, child) => _SettingsLine(
+                  'Music',
+                  Icon(
+                    musicOn ? Icons.music_note : Icons.music_off,
+                    color: Colors.black,
+                  ),
+                  onSelected: () => settings.toggleMusicOn(),
+                ),
+              ),
+              _SettingsLine(
+                'Reset progress',
+                const Icon(Icons.delete, color: Colors.black),
+                onSelected: () {
+                  context.read<PlayerProgress>().reset();
+
+                  final messenger = ScaffoldMessenger.of(context);
+                  messenger.showSnackBar(
+                    const SnackBar(
+                        content: Text('Player progress has been reset.')),
+                  );
+                },
+              ),
+              _gap,
+            ],
+          ),
+          rectangularMenuArea: MyButton(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+            child: const Text(
+              'Back',
+              style: TextStyle(
+                  fontFamily: 'Permanent Marker',
+                  fontSize: 30,
+                  height: 1,
+                  letterSpacing: 1,
+                  color: Colors.white),
+            ),
+          ),
         ),
       ),
     );
@@ -104,18 +121,18 @@ class _NameChangeLine extends StatelessWidget {
           children: [
             Text(title,
                 style: const TextStyle(
-                  fontFamily: 'Permanent Marker',
-                  fontSize: 30,
-                )),
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 30,
+                    color: Colors.black)),
             const Spacer(),
             ValueListenableBuilder(
               valueListenable: settings.playerName,
               builder: (context, name, child) => Text(
                 '‘$name’',
                 style: const TextStyle(
-                  fontFamily: 'Permanent Marker',
-                  fontSize: 30,
-                ),
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 30,
+                    color: Colors.black),
               ),
             ),
           ],
@@ -150,9 +167,9 @@ class _SettingsLine extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontFamily: 'Permanent Marker',
-                  fontSize: 30,
-                ),
+                    fontFamily: 'Permanent Marker',
+                    fontSize: 30,
+                    color: Colors.black),
               ),
             ),
             icon,

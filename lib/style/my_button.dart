@@ -1,7 +1,3 @@
-// Copyright 2023, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -41,9 +37,19 @@ class _MyButtonState extends State<MyButton>
       },
       child: RotationTransition(
         turns: _controller.drive(const _MySineTween(0.005)),
-        child: FilledButton(
-          onPressed: widget.onPressed,
-          child: widget.child,
+        child: GestureDetector(
+          onTap: widget.onPressed,
+          child: Container(
+            width: 200,
+            height: 50,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/button_img1.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: Center(child: widget.child),
+          ),
         ),
       ),
     );

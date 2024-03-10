@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 
-class Garbage extends SpriteAnimationComponent with HasGameRef<JunkFury> {
-  static const double sized = 96.0;
+class Garbage extends SpriteComponent with HasGameRef<JunkFury> {
+  static const double sized = 48.0;
 
   Garbage()
       : super(
@@ -14,14 +15,13 @@ class Garbage extends SpriteAnimationComponent with HasGameRef<JunkFury> {
 
   @override
   FutureOr<void> onLoad() async {
-    animation = await game.loadSpriteAnimation(
-      'garbage.png',
-      SpriteAnimationData.sequenced(
-        amount: 17,
-        stepTime: .2,
-        textureSize: Vector2(32, 32),
-      ),
-    );
+    final randomImageIndex = Random().nextInt(3) +
+        1; // Adjust the range based on the number of images you have
+    final imageName =
+        'garbage$randomImageIndex.png'; // Assuming your image files are named 'garbage1.png', 'garbage2.png', etc.
+
+    sprite = await game.loadSprite(imageName);
+
     add(
       RectangleHitbox(
         collisionType: CollisionType.passive,

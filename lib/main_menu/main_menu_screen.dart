@@ -51,12 +51,28 @@ class MainMenuScreen extends StatelessWidget {
                   audioController.playSfx(SfxType.buttonTap);
                   GoRouter.of(context).go('/play');
                 },
-                child: const Text('Play'),
+                child: const Text(
+                  'Play',
+                  style: TextStyle(
+                      fontFamily: 'Permanent Marker',
+                      fontSize: 30,
+                      height: 1,
+                      letterSpacing: 1,
+                      color: Colors.white),
+                ),
               ),
               _gap,
               MyButton(
                 onPressed: () => GoRouter.of(context).push('/settings'),
-                child: const Text('Settings'),
+                child: const Text(
+                  'Settings',
+                  style: TextStyle(
+                      fontFamily: 'Permanent Marker',
+                      fontSize: 30,
+                      height: 1,
+                      letterSpacing: 1,
+                      color: Colors.white),
+                ),
               ),
               _gap,
               Padding(
