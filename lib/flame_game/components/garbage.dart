@@ -15,10 +15,8 @@ class Garbage extends SpriteComponent with HasGameRef<JunkFury> {
 
   @override
   FutureOr<void> onLoad() async {
-    final randomImageIndex = Random().nextInt(3) +
-        1; // Adjust the range based on the number of images you have
-    final imageName =
-        'garbage$randomImageIndex.png'; // Assuming your image files are named 'garbage1.png', 'garbage2.png', etc.
+    final randomImageIndex = Random().nextInt(3) + 1;
+    final imageName = 'garbage$randomImageIndex.png';
 
     sprite = await game.loadSprite(imageName);
 
@@ -33,7 +31,6 @@ class Garbage extends SpriteComponent with HasGameRef<JunkFury> {
   @override
   void update(double dt) {
     super.update(dt);
-    // Move the garbage downward
     position.y += 100 * dt;
     if (position.y > game.height) {
       game.playerDied();

@@ -1,16 +1,45 @@
-# junk_fury
+# Junk Fury
 
-A new Flutter project.
+![Junk Fury Banner](assets/images/home_background.jpg)
+
+Junk Fury is an immersive 2D game designed to raise awareness about the urgent global issue of sea pollution. Players take on the role of a dedicated garbage collector tasked with safeguarding the marine ecosystem by cleaning up debris from beaches and preventing further pollution of the sea.
+
+## Screenshots
+
+<div style="display: flex; justify-content: space-between;">
+    <img src="assets/images/doc/ss1.png" alt="Gameplay Screenshot 1" style="width: 30%;">
+    <img src="assets/images/doc/ss2.png" alt="Gameplay Screenshot 2" style="width: 30%;">
+    <img src="assets/images/doc/ss3.png" alt="Gameplay Screenshot 3" style="width: 30%;">
+</div>
+
+## Features
+
+- Engaging gameplay with intuitive controls
+- Stunning visuals and immersive underwater environments
+- Educational content about the importance of ocean conservation
+- Cross-platform support for iOS and Android devices
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+To play Junk Fury, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+1. Clone this repository to your local machine.
+2. Install Flutter and Flame.
+3. Run the game on your preferred device.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Contributing
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+We welcome contributions from the community! If you'd like to contribute to Junk Fury, please follow these guidelines:
+
+- Fork the repository and create your branch.
+- Make your changes and test thoroughly.
+- Submit a pull request detailing your changes.
+
+## Feedback
+
+We'd love to hear your feedback on Junk Fury! Feel free to [open an issue](https://github.com/arunanuwantha/junk-fury/issues) if you encounter any bugs or have suggestions for improvements.
+
+## License
+
+Junk Fury is licensed under the [MIT License](LICENSE).
+

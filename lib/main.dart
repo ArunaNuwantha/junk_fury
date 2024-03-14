@@ -73,6 +73,7 @@ class MyApp extends StatelessWidget {
 
           return MaterialApp.router(
             title: 'Junk Fury',
+            debugShowCheckedModeBanner: false,
             theme: ThemeData.from(
               colorScheme: ColorScheme.fromSeed(
                 seedColor: palette.darkPen,
