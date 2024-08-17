@@ -3,10 +3,11 @@ import 'dart:math';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:junk_fury/flame_game/config.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 
 class Garbage extends SpriteComponent with HasGameRef<JunkFury> {
-  static const double sized = 48.0;
+  static double sized = garbageSize;
 
   Garbage()
       : super(

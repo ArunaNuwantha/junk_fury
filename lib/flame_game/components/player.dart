@@ -28,8 +28,8 @@ class Player extends SpriteAnimationGroupComponent
       RectangleHitbox(),
     );
 
-    width = 128;
-    height = 128;
+    width = playerSize;
+    height = playerSize;
   }
 
   void _loadAllAnimation() async {
