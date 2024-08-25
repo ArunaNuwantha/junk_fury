@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:junk_fury/flame_game/components/background.dart';
 import 'package:junk_fury/flame_game/junk_fury.dart';
 
 class PlayArea extends RectangleComponent with HasGameReference<JunkFury> {
@@ -11,8 +12,9 @@ class PlayArea extends RectangleComponent with HasGameReference<JunkFury> {
             children: [RectangleHitbox()]);
 
   @override
-  FutureOr<void> onLoad() {
+  FutureOr<void> onLoad() async {
     super.onLoad();
     size = Vector2(game.width, game.height);
+    await add(Background(width: game.width, height: game.height));
   }
 }
