@@ -7,9 +7,9 @@ Junk Fury is an immersive 2D game designed to raise awareness about the urgent g
 ## Screenshots
 
 <div style="display: flex; justify-content: space-between;">
-    <img src="assets/images/doc/ss1.png" alt="Gameplay Screenshot 1" style="width: 30%; height: 400px;">
-    <img src="assets/images/doc/ss2.png" alt="Gameplay Screenshot 2" style="width: 30%; height: 400px;">
-    <img src="assets/images/doc/ss3.png" alt="Gameplay Screenshot 3" style="width: 30%; height: 400px;">
+    <img src="./doc/ss1.png" alt="Gameplay Screenshot 1" style="width: 30%; height: 400px;">
+    <img src="./doc/ss2.png" alt="Gameplay Screenshot 2" style="width: 30%; height: 400px;">
+    <img src="./doc/ss3.png" alt="Gameplay Screenshot 3" style="width: 30%; height: 400px;">
 </div>
 
 
