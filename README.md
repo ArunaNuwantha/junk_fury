@@ -36,6 +36,11 @@ We welcome contributions from the community! If you'd like to contribute to Junk
 - Make your changes and test thoroughly.
 - Submit a pull request detailing your changes.
 
+## Privacy Policy
+
+Please review our [Privacy Policy](./PrivacyPolicy.md) for information on how we handle your data.
+
+
 ## Feedback
 
 We'd love to hear your feedback on Junk Fury! Feel free to [open an issue](https://github.com/arunanuwantha/junk_fury/issues) if you encounter any bugs or have suggestions for improvements.
