@@ -1,8 +1,8 @@
 # Junk Fury
 
-![Junk Fury Banner](assets/images/home_background.jpg)
-
 Junk Fury is an immersive 2D game designed to raise awareness about the urgent global issue of sea pollution. Players take on the role of a dedicated garbage collector tasked with safeguarding the marine ecosystem by cleaning up debris from beaches and preventing further pollution of the sea.
+
+![Junk Fury Banner](assets/images/home_background.jpg)
 
 ## Screenshots
 
@@ -38,9 +38,5 @@ We welcome contributions from the community! If you'd like to contribute to Junk
 
 ## Feedback
 
-We'd love to hear your feedback on Junk Fury! Feel free to [open an issue](https://github.com/arunanuwantha/junk-fury/issues) if you encounter any bugs or have suggestions for improvements.
-
-## License
-
-Junk Fury is licensed under the [MIT License](LICENSE).
+We'd love to hear your feedback on Junk Fury! Feel free to [open an issue](https://github.com/arunanuwantha/junk_fury/issues) if you encounter any bugs or have suggestions for improvements.
 
