@@ -1,6 +1,6 @@
 name: junk_fury
 description: "A new flutter game for global citizen hackthon."
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=3.2.5 <4.0.0'
